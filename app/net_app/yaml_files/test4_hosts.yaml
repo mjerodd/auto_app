@@ -1,0 +1,30 @@
+- core01:
+    groups:
+    - lab_group
+    hostname: 192.168.1.58
+  data:
+    logging_srvr: 172.20.5.5
+    mgmt_gw: 10.32.112.254
+    mgmt_ip: 10.32.112.31
+    mgmt_mask: '24'
+    site_id: DCD
+    switch_num: '2'
+    tacacs_key: nc;eikzm882ml#czPs1uu
+    telecom_space: B
+    vpc_peer_dest_ip: 10.188.120.1
+    vpc_peer_src_ip: 10.188.120.0
+- core02:
+    groups:
+    - lab_group
+    hostname: 192.168.1.58
+  data:
+    logging_srvr: 172.20.5.5
+    mgmt_gw: 10.32.112.254
+    mgmt_ip: 10.32.112.32
+    mgmt_mask: '24'
+    site_id: DCD
+    switch_num: '2'
+    tacacs_key: nc;eikzm882ml#czPs1uu
+    telecom_space: B
+    vpc_peer_dest_ip: 10.188.120.0
+    vpc_peer_src_ip: 10.188.120.1

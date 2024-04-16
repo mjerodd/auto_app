@@ -1,0 +1,23 @@
+---
+
+
+LAB-NEXUS:
+  hostname: "10.0.0.254"
+  groups:
+    - lab_group
+  username: "admin"
+  password: "admin"
+  platform: "cisco_nxos"
+  data:
+    site_id: "DCD"
+    switch_num: "1"
+    mgmt_ip: "10.32.112.154"
+    mgmt_mask: "25"
+    fw_sub: "10.32.112.40"
+    mgmt_gw: "10.32.112.254"
+    tacacs_key: "nc;eikzm882ml#czPs1uu"
+    telecom_space: "B"
+    vpc_peer_src_ip: "10.188.120.0"
+    vpc_peer_dest_ip: "10.188.120.1"
+    logging_srvr: ""
+

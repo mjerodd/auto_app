@@ -1,0 +1,19 @@
+version: "3.10"
+
+services:
+  app:
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000" 
+
+    environment:
+      - USERNAME=m.thomas
+      - PASSWORD=Marvelou5marv77@
+
+
+
