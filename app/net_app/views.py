@@ -51,6 +51,10 @@ cores_dict = [
 ]
 
 
+def index(request):
+    return render(request, "net_app/index.html")
+
+
 def os_trans(task):
     file_name = task.host.get('img')
     result = task.run(task=netmiko_file_transfer, source_file=file_name, dest_file=file_name, direction='put')
