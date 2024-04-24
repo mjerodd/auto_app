@@ -8,12 +8,9 @@ services:
       - "8000:8000"
     volumes:
       - ./app:/app
-    command: >
-      sh -c "python manage.py runserver 0.0.0.0:8000" 
-
-    environment:
-      - USERNAME=m.thomas
-      - PASSWORD=Marvelou5marv77@
+    image: app:django
+    container_name: django_container
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
 
   nginx:
     build: ./nginx
