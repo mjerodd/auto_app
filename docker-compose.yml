@@ -15,5 +15,11 @@ services:
       - USERNAME=m.thomas
       - PASSWORD=Marvelou5marv77@
 
-
+  nginx:
+    build: ./nginx
+    ports:
+      - 80:80
+    image: nginx:latest
+    links:
+      - app
 
