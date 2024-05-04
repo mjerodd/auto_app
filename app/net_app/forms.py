@@ -13,3 +13,7 @@ class IntDescriptionForm(forms.Form):
 
 class IosUpgradeForm(forms.Form):
     site_id = forms.CharField()
+
+
+class PaloForm(forms.Form):
+    firewall_ip = forms.CharField(max_length=100)

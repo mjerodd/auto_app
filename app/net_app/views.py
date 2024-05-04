@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
-from .forms import CoreTempForm, IntDescriptionForm, IosUpgradeForm
+from .forms import CoreTempForm, IntDescriptionForm, IosUpgradeForm, PaloForm
 from nornir import InitNornir
 from nornir_netmiko.tasks import netmiko_send_config, netmiko_send_command, netmiko_file_transfer
 from nornir_utils.plugins.functions import print_result
 from nornir_jinja2.plugins.tasks import template_file
+from .ChurchFirewall import ChurchFirewall
 import yaml, re
 # Create your views here.
 
@@ -164,3 +165,17 @@ def ios_up(request):
     else:
         form = IosUpgradeForm()
         return render(request, "net_app/ios_upgrade.html", {"form": form})
+
+
+def fw_auto(request):
+    if request.method == 'POST':
+
+        form = PaloForm(data=request.POST)
+
+        if form.is_valid():
+            fw_ip = form.cleaned_data['firewall_ip']
+            fw = ChurchFirewall("192.168.1.1")
+    else:
+        form = PaloForm()
+        context = {"form": form}
+        return render(request, "net_app/firewall_auto.html")

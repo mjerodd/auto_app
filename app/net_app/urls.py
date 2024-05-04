@@ -8,4 +8,5 @@ urlpatterns = [
     path('thanks/', views.thank_you, name='thank-you'),
     path('int-descriptions/', views.int_descriptions, name='int-descriptions'),
     path('ios-upgrade/', views.ios_up, name='ios-upgrade'),
+    path('firewall-auto/', views.fw_auto, name='firewall-auto'),
 ]
