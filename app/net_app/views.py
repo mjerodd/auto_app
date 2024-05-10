@@ -5,7 +5,7 @@ from nornir_netmiko.tasks import netmiko_send_config, netmiko_send_command, netm
 from nornir_utils.plugins.functions import print_result
 from nornir_jinja2.plugins.tasks import template_file
 from .ChurchFirewall import ChurchFirewall
-import yaml, re
+
 # Create your views here.
 
 cores_dict = [
@@ -174,8 +174,9 @@ def fw_auto(request):
 
         if form.is_valid():
             fw_ip = form.cleaned_data['firewall_ip']
-            fw = ChurchFirewall("192.168.1.1")
+            fw = ChurchFirewall(fw_ip)
+            fw.initial_clean()
     else:
         form = PaloForm()
         context = {"form": form}
-        return render(request, "net_app/firewall_auto.html")
+        return render(request, "net_app/firewall_auto.html", context=context)

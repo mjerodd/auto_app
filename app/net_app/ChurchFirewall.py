@@ -3,12 +3,13 @@ from panos import firewall
 from panos import policies
 from panos import ha
 import os
+from django.conf import settings
 
 
 class ChurchFirewall:
     def __init__(self, firewall_ip):
-        self.api_user =  os.getenv("API_USER")
-        self.api_password = os.getenv("API_PASSWORD")
+        self.api_user =  settings.API_USER
+        self.api_password = settings.API_PASSWORD
         self.fw_conn = firewall.Firewall(hostname=firewall_ip, api_username=self.api_user, api_password=self.api_password)
 
     def initial_clean(self):
