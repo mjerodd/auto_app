@@ -4,8 +4,8 @@ platform: "ios"
 
 data:
   secrets:
-    password: "4t&SxQZyAp#(!hefkUkZLdNw"
-    enable: "Puc7pUdcHNee.SthaFeN^7PyHiau"
+    password: ""
+    enable: ""
   vlans:
     '1390': dcd_av_control
     '1392': dcd_av_audio

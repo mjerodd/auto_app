@@ -135,8 +135,9 @@ def core_temp(request):
         print_result(result)
         return redirect("thank-you")
     else:
-
-        return render(request, "net_app/core_build.html")
+        form = CoreTempForm()
+        context = {"form": form}
+        return render(request, "net_app/core_build.html", context=context)
 
 
 def thank_you(request):
@@ -169,14 +170,15 @@ def ios_up(request):
 
 def fw_auto(request):
     if request.method == 'POST':
-
-        form = PaloForm(data=request.POST)
+        form = PaloForm(request.POST)
 
         if form.is_valid():
-            fw_ip = form.cleaned_data['firewall_ip']
-            fw = ChurchFirewall(fw_ip)
-            fw.initial_clean()
+            print(form.cleaned_data)
+            conf_fw = ChurchFirewall(form.cleaned_data['firewall_ip'])
+
+            conf_fw.init_net()
+            return redirect('thank-you')
     else:
         form = PaloForm()
-        context = {"form": form}
-        return render(request, "net_app/firewall_auto.html", context=context)
+        context = {'form': form}
+    return render(request, "net_app/firewall_auto.html", context=context)

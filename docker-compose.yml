@@ -10,10 +10,10 @@ services:
       - ./app:/app
     image: app:django
     container_name: django_container
-    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn app.wsgi:application --bind 0.0.0.0:8000 --timeout=5 --threads=10
 
   nginx:
-    build: ./nginx
+    build: ./app/nginx
     ports:
       - 80:80
     image: nginx:latest

@@ -7,6 +7,15 @@ from django.conf import settings
 
 
 class ChurchFirewall:
+
+    zones = ['zone_to-pa-hub', 'zone-to-hub', 'zone-to-branch', 'zone-internet', 'zone-internal', 'noc_transit_router',
+             'noc_infrastructure_mgmt',
+             'corp_wireless_mgmt', 'corp_casino_operations', 'corp_client_audiovisual', 'corp_client_general',
+             'corp_client_pos', 'corp_client_utility',
+             'corp_client_voip', 'corp_facility_general', 'corp_printer_general', 'internet_public', 'internet_open',
+             'corp_server_casino', 'corp_server_general', 'corp_server_voip', 'corp_tracd nsit_router'
+             ]
+
     def __init__(self, firewall_ip):
         self.api_user =  settings.API_USER
         self.api_password = settings.API_PASSWORD
@@ -63,6 +72,37 @@ class ChurchFirewall:
     def disable_ztp(self):
         command = "set system ztp disable"
         self.fw_conn.op(cmd=command, xml=True)
+
+    def create_zone(self, zone):
+        add_zone = network.Zone(name=zone, mode="layer3")
+        self.fw_conn.add(add_zone)
+        add_zone.create()
+
+    def init_net(self):
+        vr = network.VirtualRouter(name='sdwan')
+        self.fw_conn.add(vr)
+        vr.create()
+
+        agg_int = network.AggregateInterface(name='ae1', mode='layer3', lacp_enable=True, lacp_mode='active',
+                                             lacp_rate='slow')
+        self.fw_conn.add(agg_int)
+        agg_int.create()
+
+        for zone in self.zones:
+            self.create_zone(zone)
+        self.fw_conn.commit()
+
+        phys_int = network.EthernetInterface(name='ethernet1/5', mode='aggregate-group', aggregate_group='ae1')
+        self.fw_conn.add(phys_int)
+        phys_int.create()
+
+        wan_sub_int = network.Layer3Subinterface('ethernet1/1.1851', tag=1851, ip=('4.4.4.4',))
+        self.fw_conn.add(wan_sub_int)
+        wan_sub_int.set_zone('internet_public', update=True, running_config=True)
+        wan_sub_int.set_virtual_router('sdwan', update=True, running_config=True)
+
+        wan_sub_int.create()
+        self.fw_conn.commit()
 
 
 

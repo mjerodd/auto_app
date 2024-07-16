@@ -16,4 +16,4 @@ class IosUpgradeForm(forms.Form):
 
 
 class PaloForm(forms.Form):
-    firewall_ip = forms.CharField(max_length=100)
+    firewall_ip = forms.GenericIPAddressField(label="Firewall IP")
